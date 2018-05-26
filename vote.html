@@ -23,18 +23,22 @@
                     <p>
                         What is the future of Information Technology Age?
                     </p>
+                    <button type="button" class="btn btn-primary" onclick="addTechnologies()">Add Technologies</button>
 
-                    <button type="button" class="btn btn-outline-primary" onclick="select('Artificial Intelligence')">Artificial Intelligence</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="vote('Artificial Intelligence')">Artificial Intelligence</button>
             
-                    <button type="button" class="btn btn-outline-primary" onclick="select('Blockchain')">Blockchain</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="vote('Blockchain')">Blockchain</button>
                 
-                    <button type="button" class="btn btn-outline-primary" onclick="select('Internet of Things')">Internet of Things</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="vote('Internet of Things')">Internet of Things</button>
+
+                    <button type="button" class="btn btn-danger" onclick="poll()">POLL</button>
+                    
                 </div>
             </div>
         </div> 
         <script>
 
-            
+            var TechnologyBallot;
 
             window.addEventListener('load', function() { 
                 
@@ -120,24 +124,44 @@
                         }
                     ]);
 
-                    var TechnologyBallot = TechnologyBallotContract.at('0x6886bc1362283d6a2d8abd48ea3a0de00f5ad5b9');
-                    console.log(TechnologyBallot);
+
+                    
+                    TechnologyBallot = TechnologyBallotContract.at('0x0af068143f1dc561a3e3a4826fd4f65c8e8f76b4');
+                    console.log(TechnologyBallot);  
             });
 
+            function addTechnologies(){
+                TechnologyBallot.addTechnology('Artificial Intelligence');
+                TechnologyBallot.addTechnology('Blockchain');                
+                TechnologyBallot.addTechnology('Internet of Things');
+            }
 
-            function select(option){
+            function vote(option){
                 switch(option){
                     case "Artificial Intelligence": 
+                        TechnologyBallot.vote(0);
                         
                         break;
                     case "Blockchain": 
-
+                        TechnologyBallot.vote(1);                        
                         break;
                     case "Internet of Things": 
-
-                        break;                         
+                        TechnologyBallot.vote(2);   
+                        break;               
+                    default:
+                        console.log("selected option is not found!");
                 }
                 
+            }
+
+            function poll(){
+                TechnologyBallot.Poll(function(error, result){
+                    if(!error){
+                        console.log(result);
+                    }else{
+                        console.error(error);
+                    }
+                });
             }
         </script>
     </body>
