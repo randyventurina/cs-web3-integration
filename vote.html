@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Web3js Integration</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <!--<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>-->
+        <script src="./node_modules/web3/dist/web3.min.js"></script>
+    </head>
+    <body style="padding-top: 30px;">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        What is the future of Information Technology Age?
+                    </p>
+
+                    <button type="button" class="btn btn-outline-primary" onclick="select('Artificial Intelligence')">Artificial Intelligence</button>
+            
+                    <button type="button" class="btn btn-outline-primary" onclick="select('Blockchain')">Blockchain</button>
+                
+                    <button type="button" class="btn btn-outline-primary" onclick="select('Internet of Things')">Internet of Things</button>
+                </div>
+            </div>
+        </div> 
+        <script>
+
+            
+
+            window.addEventListener('load', function() { 
+                
+                  if (typeof web3 !== 'undefined') {
+                        web3 = new Web3(web3.currentProvider);
+                    } else {
+                        // set the provider you want from Web3.providers
+                        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+                    }
+                    console.log(web3.eth.defaultAccount = web3.eth.accounts[0]);
+                    
+                    web3.eth.defaultAccount = web3.eth.accounts[0];
+                    
+                    var TechnologyBallotContract = web3.eth.contract([
+                        {
+                            "constant": false,
+                            "inputs": [
+                                {
+                                    "name": "id",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "name": "vote",
+                            "outputs": [],
+                            "payable": false,
+                            "stateMutability": "nonpayable",
+                            "type": "function"
+                        },
+                        {
+                            "constant": false,
+                            "inputs": [
+                                {
+                                    "name": "_name",
+                                    "type": "bytes32"
+                                }
+                            ],
+                            "name": "addTechnology",
+                            "outputs": [],
+                            "payable": false,
+                            "stateMutability": "nonpayable",
+                            "type": "function"
+                        },
+                        {
+                            "constant": true,
+                            "inputs": [
+                                {
+                                    "name": "",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "name": "techs",
+                            "outputs": [
+                                {
+                                    "name": "id",
+                                    "type": "uint256"
+                                },
+                                {
+                                    "name": "name",
+                                    "type": "bytes32"
+                                },
+                                {
+                                    "name": "votes",
+                                    "type": "uint256"
+                                }
+                            ],
+                            "payable": false,
+                            "stateMutability": "view",
+                            "type": "function"
+                        },
+                        {
+                            "constant": true,
+                            "inputs": [],
+                            "name": "Poll",
+                            "outputs": [
+                                {
+                                    "name": "",
+                                    "type": "bytes32"
+                                }
+                            ],
+                            "payable": false,
+                            "stateMutability": "view",
+                            "type": "function"
+                        }
+                    ]);
+
+                    var TechnologyBallot = TechnologyBallotContract.at('0x6886bc1362283d6a2d8abd48ea3a0de00f5ad5b9');
+                    console.log(TechnologyBallot);
+            });
+
+
+            function select(option){
+                switch(option){
+                    case "Artificial Intelligence": 
+                        
+                        break;
+                    case "Blockchain": 
+
+                        break;
+                    case "Internet of Things": 
+
+                        break;                         
+                }
+                
+            }
+        </script>
+    </body>
+</html>
